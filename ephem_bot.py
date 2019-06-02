@@ -19,7 +19,21 @@ import datetime
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
-planets_set = {"Меркурий":"Mercury", "Венера":"Venus", "Земля":"Earth", "Марс":"Mars", "Юпитер":"Jupiter", "Сатурн":"Saturn", "Уран":"Uranus", "Нептун":"Neptune", "Плутон":"Pluto"}
+planets_set = {
+  "Меркурий":"Mercury", 
+  "Венера":"Venus", 
+  "Земля":"Earth", 
+  "Марс":"Mars", 
+  "Юпитер":"Jupiter", 
+  "Сатурн":"Saturn", 
+  "Уран":"Uranus", 
+  "Нептун":"Neptune", 
+  "Плутон":"Pluto"
+}
+# при написании кода избегают длинных стрк, чтобы все помещалось на одном экране и читать бло удобней
+# выше отформатировала, как обысно делают
+# так же по работе с константами - пеермеными настройки или конфигами, которые не изменяются по мере работы программы
+# их обычно выносят в settings.py, называют капс-локом и импотируют уже в рабочий код
 
 logging.basicConfig(format='%(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO,
@@ -55,10 +69,13 @@ def planet_informer(bot, update):
     planet_search = user_text.split(' ')
     print (planet_search)
     plnts = "ephem."
+    # не-используемяе переменные лучше удалять
     
     
     for planet in planet_search:
+    # ты идешь циклом по словам из сообщения пользователя, первое слово - всегда команда, давай ее уберем?
         for k,v in planets_set.items():
+        # зачем этот цикл?
             if planet in k:
                 
                 print ("Поиск данных по небесному телу: ", planet)
@@ -66,6 +83,8 @@ def planet_informer(bot, update):
                 data = ephem.constellation(plnt)
                 print (data)
                 reply = "Планета в созвездии: " +data[1]
+                # если я праильно тебя поняла, цикл первый тут для того, чтобы можно было по нескольким планетам ответить
+                # сразу? получится ли это в текущей реализации?
     update.message.reply_text(reply)
 
 def main():
