@@ -38,10 +38,17 @@ def ask_user():
     condition = True
 
     while condition is not None:
+      # bool(None) == False , приравнивание - избыточный код, его обычно изьегают
         try:
             user_response = input('Ну скажи что-нибудь: ')
             condition = small_talking.get(user_response)
             bot_response = small_talking.get(user_response) if small_talking.get(user_response) is not None else "Чао какао!"
+            # в пердыдущих 2х строчках ты 3 раза вытаскиваешь ответ из словаря
+            # есть 2 варианта - вытаскивать 1 раз. писать в переменную и двльше только с ней работать (ты и так записываешь 
+            # в кондишн) или двлеть разные действия
+            # в рамках обучения предлагаю второй вариант. давай сделаем так:
+            # 1. проверяем, есть ли в словаре такой ключ, если нет - пишем "пока" и вываливаемся
+            # 2. если ключ есть, отвесаем ответ =)
             print(bot_response)
         except KeyboardInterrupt:
             print('пока :(')
